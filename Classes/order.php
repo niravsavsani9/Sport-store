@@ -1,5 +1,7 @@
 <?php
-require_once ('../Classes/customer.php');
+
+//require './customer.php';
+//require_once '../connection.php';
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/PHPClass.php to edit this template
@@ -16,7 +18,8 @@ class order {
     #create constant
     const CUSTOMER_ID_LENGHT = 36;
     const PRODUCT_ID_LENGHT = 36;
-    const QUANTITY_LENGHT = 3;
+    const QUANTITY_MAXIMUM_LENGHT = 999;
+    const QUANTITY_MINIMUM_LENGHT = 1;
     const PRICE_LENGHT = 10;
     const COMMENTS_LENGHT = 200;
 
@@ -27,7 +30,14 @@ class order {
     private $quantity = "";
     private $price = "";
     private $comments = "";
+    private $sub_total = "";
+    private $taxes = "";
+    private $total = "";
     
+    public function getOrderID()
+    {
+        return $this->order_id;
+    }
    
     public function getCustomerId() {
         return $this->customer_id;
@@ -44,6 +54,28 @@ class order {
     }
     public function getComments() {
         return $this->comments;
+    }
+     public function getSubTotal() {
+        return $this->sub_total;
+    }
+     public function getTaxes() {
+        return $this->taxes;
+    }
+     public function getTotal() {
+        return $this->total;
+    }
+    
+    public function setOrderID($newOrder_id)
+    {
+        if(mb_strlen($newOrder_id) != 0)
+        {
+            
+            $this->order_id = $newOrder_id;
+        }
+        else
+        {
+            return "Order id (primary Key) missing.....";
+        }
     }
         
     public function setCustomerId($newCustomerId) {
@@ -75,12 +107,28 @@ class order {
     public function setQuantity($newQuantity) {
         if (mb_strlen($newQuantity) == 0) {
             return "The quantity........... empty";
-        } else {
-            #access created constants using self as below
-            if (mb_strlen($newQuantity) > self::QUANTITY_LENGHT) {
-                return "The lenght of quantity............error!";
-            } else {
-                $this->quantity = $newQuantity;
+        } else
+        if (!(is_numeric($newQuantity))) 
+        {
+            return "The Quantity must be a Numeric Value";
+        }
+        else
+        {
+            if(mb_strpos($newQuantity, ".") || mb_strpos($newQuantity, ","))
+            {
+                return "The Quantity cannot be decimal.";
+            }
+            else
+            {
+                if ($newQuantity < self::QUANTITY_MINIMUM_LENGHT || $newQuantity > self::QUANTITY_MAXIMUM_LENGHT) 
+                {
+                    return "The lenght of quantity............error!";
+                }
+                else 
+                {
+                     $this->quantity = $newQuantity;
+
+                }
             }
         }
     }
@@ -88,7 +136,11 @@ class order {
     public function setPrice($newPrice) {
         if (mb_strlen($newPrice) == 0) {
             return "The price...........empty";
-        } else {
+        }else
+            if (!(is_numeric($newPrice))) 
+            {
+                return "The Price must be a Numeric Value";
+            } else {
             #access created constants using self as below
             if (mb_strlen($newPrice) > self::PRICE_LENGHT) {
                 return "The lenght of price............error!";
@@ -99,22 +151,31 @@ class order {
     }
     
     public function setComments($newComments) {
-        if (mb_strlen($newComments) == 0) {
-            return "The comments...........empty";
-        } else {
-            #access created constants using self as below
+        #access created constants using self as below
             if (mb_strlen($newComments) > self::COMMENTS_LENGHT) {
                 return "The lenght of comments............error!";
             } else {
                 $this->comments = $newComments;
             }
-        }
+    }
+    
+    public function setSubTotal($newSubTotal) {
+       
+                $this->sub_total = $newSubTotal;
+    }
+    public function setTaxes($newTaxes) {
+       
+                $this->taxes = $newTaxes;
+    }
+    public function setTotal($newTotal) {
+       
+                $this->total = $newTotal;
     }
     
     
-    
-    public function __construct($customer_id = "", $product_id = "", $quantity = "", $price = "", $comments = "") {
-        if ($customer_id != "" || $product_id != "" || $quantity != "" || $price != "" || $comments != "" ) {
+    public function __construct($order_id = "", $customer_id = "", $product_id = "", $quantity = "", $price = "", $comments = "") {
+        if ($order_id != "" || $customer_id != "" || $product_id != "" || $quantity != "" || $price != "" || $comments != "" ) {
+            $this->order_id($order_id);
             $this->setCustomerId($customer_id);
             $this->setProductId($product_id);
             $this->setQuantity($quantity);
@@ -126,8 +187,7 @@ class order {
     #get data from database
     public function load($order_id){
         global $connection;
-        $sql = "SELECT * FROM orders WHERE order_id "
-                . " = :order_id";
+        $sql = "CALL order_select_one(:order_id)";
         
         $PDOobject = $connection->prepare($sql);
         $PDOobject->bindParam(':order_id', $order_id);
@@ -147,29 +207,33 @@ class order {
     public function save()
     {
         global $connection;
-        if($this->customer_id == "")
+        if($this->order_id == "")
         {
-            $sql = "CALL mystoreprocedure(:customer_id, :product_id, :quantity, :price, :comments)";
+            $sql = "CALL order_insert(:customer_id, :product_id, :quantity, :price, :comments, :sub_total, :taxes, :total)";
             $PDOobject = $connection->prepare($sql);
             $PDOobject->bindParam(':customer_id', $this->customer_id);
             $PDOobject->bindParam(':product_id', $this->product_id);
             $PDOobject->bindParam(':quantity', $this->quantity);
             $PDOobject->bindParam(':price', $this->price);
             $PDOobject->bindParam(':comments', $this->comments);
+            $PDOobject->bindParam(':sub_total', $this->sub_total);
+            $PDOobject->bindParam(':taxes', $this->taxes);
+            $PDOobject->bindParam(':total', $this->total);
             $PDOobject->execute();
-        
             return true;
         }
         else
         {
-            $sql = "CALL mystoreprocedure(customer_id = :customer_id, product_id = :product_id, quantity = :quantity, price = :price"
-                    . " comments = :comments)";
+            $sql = "CALL order_update(:customer_id, :product_id, :quantity, :price, :comments, :sub_total, :taxes, :total)";
             $PDOobject = $connection->prepare($sql);
             $PDOobject->bindParam(':customer_id', $this->customer_id);
             $PDOobject->bindParam(':product_id', $this->product_id);
             $PDOobject->bindParam(':quantity', $this->quantity);
             $PDOobject->bindParam(':price', $this->price);
             $PDOobject->bindParam(':comments', $this->comments);
+            $PDOobject->bindParam(':sub_total', $this->sub_total);
+            $PDOobject->bindParam(':taxes', $this->taxes);
+            $PDOobject->bindParam(':total', $this->total);
             $PDOobject->execute();
 
             return true;
@@ -179,9 +243,9 @@ class order {
     public function delete()
     {
          global $connection;
-         if($this->customer_id != "")
+         if($this->order_id != "")
         {
-        $sql = "CALL mystoreprocedure(order_id = :order_id)";
+        $sql = "CALL order_delete(:order_id)";
             $PDOobject = $connection->prepare($sql);
             $PDOobject->bindParam(':order_id', $this->order_id);
             $PDOobject->execute();
@@ -189,3 +253,4 @@ class order {
         }
     }
 }
+?>

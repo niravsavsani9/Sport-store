@@ -10,6 +10,9 @@
 #NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         03/03/2022           set display(company) logo for home page
 #NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         07/03/2022           set an opacity conndition for css
 //defined all constant of project
+require_once './connection.php';
+require_once './Classes/customer.php';
+session_start();
 define("FOLDER_FUNCTION", "./Function/");
 define("PHP_FILE", FOLDER_FUNCTION . "./functions.php");
 define("FOLDER_CSS", "./CSS/");
@@ -18,7 +21,11 @@ define("FILE_CSS", FOLDER_CSS . "./finalProject.css");
 define("FOLDER_IMAGES", "./Image/");
 define("FILE_INDEX", "./index.php");
 define("FILE_BUYING", "./buying.php");
-define("FILE_ORDER", "./order.php");
+define("FILE_ORDER", "./orderProject.php");
+define("FILE_BUY", "./buy.php");
+define("FILE_ACCOUNT", "./account.php");
+define("FILE_LOGIN", "./login.php");
+define("FILE_REGISTER", "./register.php");
 define("FOLDER_TEXT", "./Orders/");
 define("FOLDER_LOG", "./Logs/");
 define("File_TEXT1", FOLDER_TEXT . "./order.txt");
@@ -35,6 +42,10 @@ define("LOCAL_TAX", 13.45);
 //Created page top function to minimise every time html code overlapping
 define("DEBUGGING_MODE", true);
 $currentDateTime = date('Y-m-d');
+$userUsername = "";
+$userPassword = "";
+$errorUserUsername = "";
+$errorUserLogin = "";
 $curPageName = substr($_SERVER["SCRIPT_NAME"], strrpos($_SERVER["SCRIPT_NAME"], "/") + 1);
 
 function manageError($errorNumber, $errorString, $errorFile, $errorLine) {
@@ -74,61 +85,87 @@ function manageException($exception) {
 set_error_handler("manageError");
 set_exception_handler("manageException");
 
+$username = new customer();
+
 function pagetop($pageTitle) {
     header('Expires: Sat, 03 Dec 1994 16:00:00 GMT');
     header('Cache-Control: no-cache');
     header('Pragma: no-cache');
     header('Content-type: text/html; charset=UTF-8');
+
+    if (isset($_POST["login"])) {
+        global$username;
+        global $errorUserLogin, $userPassword, $userUsername;
+        $userUsername = htmlspecialchars($_POST["username"]);
+        $userPassword = htmlspecialchars($_POST["password"]);
+
+        $errorUserLogin = $username->customerLogin($userUsername, $userPassword);
+//        echo $_SESSION["customer_id"];
+
+        if ($userUsername == "" || $userPassword == "" || $errorUserLogin = "") {
+            echo "session not created";
+        } else {
+            echo "session  created";
+        }
+    } else {
+        if (isset($_POST["logout"])) {
+            echo "session destroyed";
+            session_destroy();
+            header("Location: index.php");
+        } else {
+            if (isset($_SESSION["customer_id"])) {
+                $username = $_SESSION["customer_id"];
+            }
+        }
+    }
     ?><!DOCTYPE html>
     <html>
         <head>
             <meta charset="UTF-8">
-            <link rel="stylesheet" type="text/css" href="<?php
-
-            if (($pageTitle == "order Page") && (isset($_GET['command']) && $_GET['command'] == "print")) {
-
-                echo FILE_NEWFILE;
-            } else if (($pageTitle == "order Page") && (isset($_GET['command']) && $_GET['command'] == "color")) {
-
-                echo FILE_CSS;
-            } else {
-                echo FILE_CSS;
-            }
-            ?>
-                  "/> 
+            <link rel="stylesheet" type="text/css" href="<?php echo FILE_CSS; ?>"/> 
 
             <title><?php echo $pageTitle; ?> </title>
         </head>
-        <body class="<?php
-        ;
-        $backgroundcolor = "";
-        if ($pageTitle == "order Page") {
-            if (isset($_GET["command"])) {
-                if ($_GET["command"] == "print") {
-                    $backgroundcolor = "print";
-                }
-            } else {
-                $backgroundcolor = "orderBackground";
-            }
-        } else if ($pageTitle == "Buying Page") {
-            $backgroundcolor = "buyingBackground";
-        } else if ($pageTitle == "HomePage") {
-            $backgroundcolor = "indexBackground";
-        }
-        echo $backgroundcolor;
-        ?>">
+        <body class="">
             <table class="mainNavigationTable" width="101%">
                 <tr>
                     <td id="1ColumTable">
+
+
                         <div id="mySidenav" class="sidenav">
                             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
                             <a href="<?php echo FILE_INDEX; ?>">Index</a>
-                            <a href="<?php echo FILE_BUYING; ?>">Buying</a>
-                            <a href="<?php echo FILE_ORDER; ?>">Orders</a>
+
+
+    <?php
+    if (empty($_SESSION["firstname"])) {
+        ?>
+                                <a href="<?php echo FILE_LOGIN; ?>">Login</a>
+        <?php
+    }
+    ?>
+
+                            <?php
+                            if (!empty($_SESSION["firstname"])) {
+                                $username1 = new customer();
+                                ?>
+                                <a href="<?php echo FILE_ORDER; ?>">Orders</a>
+                                <a href="<?php echo FILE_BUY; ?>">Buy</a>
+                                <a href="<?php echo FILE_REGISTER; ?>">Account</a>
+                                <!--<img src="../Image/yoga.jpeg" base64_encode() />-->
+                                <!--<img src="../Image/yoga.jpeg" base64_encode(<?php echo $username1->getPicture(); ?>) alt="alt"/>-->
+                                <!--<input type="submit" value="Logout" name="logout" />-->
+                                <?php
+                            }
+                            ?>
+
+
                         </div>
                         <div id="main" >
                             <span id="accessNavigationButton" onclick="openNav()">&#9776; Menu</span>
                         </div>
+
                     </td>
                     <td >
                         <h1 id="title">
@@ -140,14 +177,16 @@ function pagetop($pageTitle) {
                     </td>
                 </tr>
             </table>
+           
             <hr class="line">
-            <?php
-            //passed navigation menu functions to operate website at every pages
-            navigationMenu();
-        }
+            <br />
+    <?php
+    //passed navigation menu functions to operate website at every pages
+    navigationMenu();
+}
 
-        function navigationMenu() {
-            ?>
+function navigationMenu() {
+    ?>
             <script>
                 function openNav() {
                     document.getElementById("mySidenav").style.width = "250px";
@@ -158,16 +197,16 @@ function pagetop($pageTitle) {
                     document.getElementById("main").style.marginLeft = "0";
                 }
             </script>
-            <?php
-        }
+    <?php
+}
 
 //bottom page function to write default message at the bottom of the page
-        function pageBottom() {
-            ?>
+function pageBottom() {
+    ?>
             <!-- copy right year dynamic printed at the bottom-->
             <p class="copyRightInfo">Copyright® Niravkumar Savsani(2110222) <?php echo date('Y'); ?> </p>
         </body>
     </html>
-    <?php
-}
-?>
+            <?php
+        }
+        ?>

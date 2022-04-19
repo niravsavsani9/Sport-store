@@ -11,6 +11,7 @@
 //constant declaration
 define("FOLDER_PHP", "./Function/");
 define("FILE_PHP", FOLDER_PHP . "./functions.php");
+define("CHEATSHEET", "./cheatSheet.txt");
 //defined image constant as an array for random images
 define("RANDOM_IMAGES", array("BTB_Nike_Cleats_Mercurial2.jpg",
     "baseball.jpg",
@@ -24,10 +25,13 @@ $random_images1 = RANDOM_IMAGES;
 //shffled that variable using shuffle function
 shuffle($random_images1);
 pagetop("HomePage");
+
+
 ?>
-<h1>WE FIT YOUR GAME.</h1>
+
 <table class="tableIndexPage">
     <tr>
+        <h1>WE FIT YOUR GAME.</h1>
         <td id="dataOfTableContent">
             <h3>No matter your level of play, personal style, or budget, you can feel confident that one of 
                 our 150+ stores across Canada will have what you're looking for, in store or online.</h3>
@@ -46,9 +50,28 @@ pagetop("HomePage");
         </td>
     </tr>
 </table>
-<a href="buying.php" id="next">Buying Page &raquo;</a>
+<!--<a href="buying.php" id="next">Buying Page &raquo;</a>-->
+<a href="<?php echo CHEATSHEET; ?>" download id="previous">Download Cheat Sheet</a>
+<form method="post">
+   
+    <?php 
+    $username1 = new customer();
+     foreach ($username1 as $customers){
+     echo $username1->getPicture(); }?>
+     
+    
+                                <?php if(!empty($_SESSION["firstname"]))
+                             { 
+                                 ?>
+    <input type="submit" class="registerbtn" value="Logout" name="logout" />
+   
+    <img src="data:image;base64," base64_encode(<?php echo $username1->getPicture(); ?>) alt="alt"/>
+                             <?php
+                                 }
+                                 ?>
 
-<?php
+</form>
+    <?php
 //called pageBottom function to get copyright details
 pageBottom();
 

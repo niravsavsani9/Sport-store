@@ -1,0 +1,384 @@
+AUTHOR : NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)
+
+[PATH].........................................................................................................................................................................
+	Absolute path = COMPLETE path
+		c:\xampp\htdocs\firstwebsite\pictures\x.jpg
+
+	RELATIVE path
+		index.php : c:\xampp\htdocs\firstwebsite
+		x.jpg: c:\xampp\htdocs\firstwebsite\pictures
+		. --> current folder
+		.. --> previous folder
+
+
+
+
+[Variables]....................................................................................................................................................................
+		Create a variable : $varibaleName
+		Create a constants : ("FILE_NAME", (File location)) -- where FILE_NAME is name of contant you will call late and file location is path of your file you want to call or 													   name of file you waant to call
+
+[Array sorting]................................................................................................................................................................
+		asort($myArray);
+		sort($myArray);
+		
+[Associative array]............................................................................................................................................................
+		Define array : $myArray = array[];
+		Assign values in associative array :  $myArray = array("Linux" => "Linus Torvvalds", "Miocrosoft" => "Bill Gates",);
+		Add a value in associative array :  $myArray["Apple"] = "steve jobs";
+		create new array :  $myNewArray = array("abc", "def", "ghi");
+
+[Delete entries in an array]...................................................................................................................................................
+		Remove the last element of the array : array_pop($myNewArray); 
+		Remove the FIRST element of the array : array_shift($myNewArray);
+		Removes the specific array using index : unset($myNewArray[1]); //this is best way to remove an array
+s
+[Functions]....................................................................................................................................................................
+Create php funnction : 
+		<?php
+		function test() {
+		    echo"test";
+		}
+		?>
+
+[Round method].................................................................................................................................................................
+This is used to round any amount in desired deciamls : return round($sub + ($sub*TAX_RATE),2); //this will round till 2 points.
+For example: 
+		function AmountWithTaxes ($sub)
+		        {
+		            return round($sub + ($sub*TAX_RATE),2);
+		        }
+		        $total1 = AmountWithTaxes(12.99);
+		        echo "<br> round value after two decimal is ^$total1";
+
+[Display String Messages (final project)]......................................................................................................................................
+		function generateWelcomeMessage1($userName1) {
+				echo "<br>Welcome to my first webpage....." . $userName1; //#1 method to print
+		        echo "<br>Welcome $userName1! to my first webpage....."; //#2 method to print
+		        return "<br>Welcome $userName1! to my first webpage....."; //#3 method to print and use this in project
+		}
+		        $userName1 = "Nirav";
+		        $welcome = generateWelcomeMessage1($userName1);
+		        echo $welcome;
+
+[Call function file from outside]..............................................................................................................................................
+		Method 1 : include("Functions/phpFunction.php"); // this will print output repeatedly
+		Method 2 : include_once ("Functions/phpFunction.php"); // this will print output only once
+		Method 3 : require("Functions/phpFunction.php");  // works same as include
+		Method 4 : require_once("Functions/phpFunction.php"); // works same as include_once
+
+[date and Time zone for Specific zone].........................................................................................................................................
+      	echo date_default_timezone_get("America/Toronto"); //to mention specific time zone
+
+[Date and Time zone formate manually]..........................................................................................................................................
+		$myDateTime = date_create("now"); // to mention current date and time 
+        $myDateTime = new DateTime("now"); // same as above 
+        echo $myDateTime->format("Y/m/d H:i:s"); // $myDateTime is object -> format is property 
+
+[Time Stamp prints live time]..................................................................................................................................................
+        $myTimestamp = strtotime("now"); //timeStamp (performace is good) but we dont use time stamp
+        var_dump($myTimestamp);
+
+[Date Pase]....................................................................................................................................................................
+        $userEntry = "2022/02/31";
+        $myDateParse = date_parse($userEntry);
+        echo $myDateParse;
+
+[benchmark_Date and Time]......................................................................................................................................................
+		Get current start date and time : $startDateTime = new DateTime("now");
+		Get Current end date and time : $endDateTime = new DateTime("now");
+		Get interval(diff) Date and time :  $interval = $startDateTime->diff($endDateTime);
+		Print interval time : echo $interval->format("<br>It took %s.%F seconds to complete teh for loop");
+
+[Empersion]....................................................................................................................................................................
+		 
+       $city = "montreal"; //declare a variable
+       function test (&$var1) //& will allow function to user variables which created outside 
+        {
+            global $city;
+        }
+
+[Casting Values]...............................................................................................................................................................
+		$number_of_tickets = "25.5"; //entered data is in String
+		$number_of_tickets = floatval($number_of_tickets); // string to float
+        $name = (int) $name; // string to int
+        $name = (integer) $name; // string to ineteger
+        $number_of_tickets = intval($number_of_tickets); // string to int value
+
+[Create File using php code]...................................................................................................................................................
+		$fileHandle = fopen("jf.txt","w"); //This is to open file
+		fwrite($fileHandle,"Lasalle");  //This is to write in file
+		fclose($fileHandle); // this will close the opened file
+
+[Read created File using php code].............................................................................................................................................
+		$fileHandle = fopen("jf.txt","r"); //use r for reading a file
+
+		//Code to read file with validations
+		if (file_exists("jf.txt"))
+        {
+        	$fileHandle = fopen("jf.txt","r"); //use r for reading a file
+        	echo "<ol>";
+        	while(!feof($fileHandle)) //read from file
+        	{
+          		//in the project: read the file, decode the JASON string,
+          		//se the array to fill the HTML table
+            	$fileLine = fgets($fileHandle); #read a line in file and put it in variable
+            	if ($fileLine != "")
+            	{
+            		echo "<li>". $fileLine."</li>";
+            	}
+        	}
+        }
+        echo "</ol>";
+        fclose($fileHandle); //close the file
+
+[Delete created File using php code]...........................................................................................................................................
+        unlink("jf.txt"); //delete a file
+
+[Catch handling]...............................................................................................................................................................
+		//ignore the cache 
+		//get rid of refreshing browser manually (cmd+F5)
+		
+		header('Expires: Sat, 03 Dec 1994 16:00:00 GMT');
+ 		header('Chache-Control: no-cache');
+ 		header('Pragma: no-cache');
+    	header('Content-type: text/html; charset=UTF-8'); //french languages accents implimentation (UTF-8)
+
+[Error handling]...............................................................................................................................................................
+		define("DEBUG_MODE", false); //true means I am debugging (development) //false means I put  my website in the internet (production)
+
+		function manageError($errorNumber, $errorString, $errorFile, $errorLine) {
+		    if (DEBUG_MODE == true) {
+		        //for developers
+		        echo "<br>An Error " . $errorNumber . " (" . $errorString . ") occured in the file" .
+		        $errorFile . " at line " . $errorLine;
+		    } else {
+		        //for end users
+		        echo "An Error occured";
+		    }
+		    //save the detailed error in the file
+		    exit(); //kill PHP
+		}
+
+		set_error_handler("manageError"); //call functions
+
+[Manage Exceptions]............................................................................................................................................................
+		function manageException($Exception) {
+    			if (DEBUG_MODE == true) {
+				#for developers
+	    			echo "<br>An Error " . $Exception->getCode() . " (" . $Exception->getMessage() . ") occured in the file" .
+	        		$Exception->getFile() . " at line " . $Exception->getLine();
+	    			} else {
+	        			#for end users
+	        			echo "Exception Occured";
+	    			}
+    
+    				#save the detailed error in the file
+    
+   				 exit(); #kill PHP
+			}
+
+		set_exception_handler("manageException");
+
+		throw new exception ("Homer simpson says: Doh!"); #test the exception handler
+
+[Create Cookie]................................................................................................................................................................
+		function createCookie()
+		{
+		 
+		    if(isset($_POST["username"]))
+		    {
+		        #setting cookie as per user enters username
+		        #htmlspecial character to be protected from special characters
+		        setCookie("username", htmlspecialchars($_POST["username"]),
+		                time() + 10, #to set time to cookie expire in seconds(for now it set for 10seconds)
+		                "","",false,true); #path,domain,secure,http
+		    }
+		    
+		    #test if the cookies are enabled
+		    #reloads the page to index page
+		    header(("Location: index.php"));
+		    exit();
+		}
+
+		//Write code in html section
+		<?php
+	        // put your code here
+	        
+	        if($username != "")
+	        {
+	            echo "Welcome ". $username;
+	            echo "<br>";
+	            
+	            #this to show a logout when user already logged in
+	            #<form  > name="logout"
+	            #dont use a <a>(anchor) tag in the final project
+	            echo '<a href = "index.php?logout">Logout</a>';
+	        }
+	        ?>
+	        
+	        
+	        <br />
+	        
+	        <form action="index.php" method="post">
+	            <label for="username">UserName : </label>    
+	            <input id="username" type="text" name="username" />
+	            
+	            <input type="submit" name="login" value="Login" />
+	            
+	        </form> 
+
+[Delete Cookie]................................................................................................................................................................
+		function deleteCookie()
+		{
+		        setCookie("username","",
+		                time() -  10, #(- 10) means cookie already expired
+		                "","",false,true); #path,domain,secure,http
+		    
+		    
+		    #test if the cookies are deleted
+		    #reloads the page to index page
+		    header("Location: index.php");
+		    exit();
+		}
+
+		//Write code in html section
+		<?php
+	        // put your code here
+	        
+	        if($username != "")
+	        {
+	            echo "Welcome ". $username;
+	            echo "<br>";
+	            
+	            #this to show a logout when user already logged in
+	            #<form  > name="logout"
+	            #dont use a <a>(anchor) tag in the final project
+	            echo '<a href = "index.php?logout">Logout</a>';
+	        }
+	        ?>
+	        
+	        
+	        <br />
+	        
+	        <form action="index.php" method="post">
+	            <label for="username">UserName : </label>    
+	            <input id="username" type="text" name="username" />
+	            
+	            <input type="submit" name="login" value="Login" />
+	            
+	        </form> 
+
+[Read Cookie]..................................................................................................................................................................
+		function readCookie()
+		{
+		       global $username;
+		       
+		       #$_COOKIE to read cookie of the browser
+		    if(isset($_COOKIE["username"]))
+		    {
+		        $username = $_COOKIE["username"];
+		        
+		        #renew the expiration time of cookie at refreshing website
+		        setCookie("username",$username,
+		                time() + 10, #to set time to cookie expire in seconds
+		                "","",false,true); #path,domain,secure,http
+		    }
+		}
+
+		//Write code in html section
+		<?php
+	        // put your code here
+	        
+	        if($username != "")
+	        {
+	            echo "Welcome ". $username;
+	            echo "<br>";
+	            
+	            #this to show a logout when user already logged in
+	            #<form  > name="logout"
+	            #dont use a <a>(anchor) tag in the final project
+	            echo '<a href = "index.php?logout">Logout</a>';
+	        }
+	        ?>
+	        
+	        
+	        <br />
+	        
+	        <form action="index.php" method="post">
+	            <label for="username">UserName : </label>    
+	            <input id="username" type="text" name="username" />
+	            
+	            <input type="submit" name="login" value="Login" />
+	            
+	        </form> 
+
+[Session]......................................................................................................................................................................
+		session_start(); //initialize session variables
+		$username = "";
+
+		//if the user logged-in
+		if(isset($_POST["username"]))
+		{
+		    #save the username into a session variable
+		    $_SESSION["username"] = $_POST["username"];
+		    header("Location: index.php");
+		    exit();
+		    
+		}
+		else{
+		    
+		    //if the user logged-out
+		    if(isset($_GET["logout"])) #use $_post in the project
+		    {
+		        session_destroy();
+		    }
+		    else
+		    {
+		        //if the user already logged-in
+		        if(isset($_SESSION["username"]))
+		        {
+		            #read the cookie, dont read the session
+		            $username = $_SESSION["username"];
+		        }
+		    }
+		}
+
+		//write code in html section
+		if($username)
+	        {
+	            echo "welcome" . $username;
+	            echo '<a href = "index.php?logout">Logout</a>';
+	        }
+	        ?>
+	        
+	        <form method="post" >
+	            <input name="username" />
+	            <input type="submit" />
+	            
+	        </form>
+
+[? : sending parameters(s) on server]..........................................................................................................................................
+[& : additional parameter on server]...........................................................................................................................................
+[$_SERVER : who called the page]
+[Get : remember in the browser history,  shorter list of parameter,  address bar or code running]
+[POST : safe, its cleared when you quit the browser]
+[header('Location: confirmation.php'); : will work as onclick function and redirect to destinated page or link]
+[exit(); : it will used to get exit from function.]
+
+[Global Varibles]..............................................................................................................................................................
+	<?php
+		        #1st way to get/call environment variable
+			//$_ENV;
+		        #2nd way to get/call environment variable
+		        #here LOGNAME is a computer name for my macbook 
+		        #if you want to see environment variables in macbook type
+        		#printenv in terminal and get environment varibles from there
+        echo "This pc has " . getenv("LOGNAME"). " is computer name ";
+        ?>
+
+
+[mysql workbench]..............................................................................................................................................................
+	utf8-mb4 : every charater takes 4byte so, it will slow down your database when you have large amount of data to store.
+	utf8 : every charater takes 1byte so, it will good when you have large amount of data to store. It take more bytes when its required
+	ci : case Insensitive
+	cs : case sensitive

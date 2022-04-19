@@ -1,5 +1,5 @@
-<?php
-#Revision History
+<?php //
+//Revision History
 #
 #DEVELOPER                                         DATE                            COMMENTS
 #NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         28/02/2022           created order.php file
@@ -77,7 +77,7 @@ pagetop("order Page");
     <a href="buying.php" id="next"> &laquo; Buying Page</a>
     <a href="index.php" id="previous">Home</a>
 
-    <a href="../midTerm_2110222/cheatSheet.txt" download id="previous">Download Cheat Sheet</a>
+    
 
     <?php
 //called pageBottom function to get copyright details

@@ -1,6 +1,5 @@
 <?php
-require_once ('./collectionArray.php');
-require_once ('./customer.php');
+require_once './collectionArray.php';
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/PHPClass.php to edit this template
@@ -16,13 +15,13 @@ class customers extends collectionArray {
     function __construct() {
         global $connection;
         
-        $sql = "SELECT * FROM customers ORDER BY firstname";
+        $sql = "CALL customer_select_all";
         
         $PDOobject = $connection->prepare($sql);
         $PDOobject->execute();
         while($row = $PDOobject->fetch(PDO::FETCH_ASSOC))
         {
-            $customers = new customers($row["customer_id"],$row["username"],$row["password"],$row["firstname"],$row["lastname"],$row["address"],$row["city"],$row["province"],$row["postal_code"],$row["picture"]);
+            $customers = new customer($row["customer_id"],$row["username"],$row["password"],$row["firstname"],$row["lastname"],$row["address"],$row["city"],$row["province"],$row["postal_code"],$row["picture"]);
             $this->add($row["customer_id"],$customers);
         }
     }
