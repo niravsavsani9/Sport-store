@@ -14,7 +14,7 @@ require_once './Classes/orders.php';
 define("FOLDER_PHP3", "./Function/");
 define("PHP_FILE3", FOLDER_PHP3 . "./functions.php");
 include_once(PHP_FILE3);
-pagetop("buy Page");
+pagetop("order Page");
 global $connection;
 ?>
 <form method="post">

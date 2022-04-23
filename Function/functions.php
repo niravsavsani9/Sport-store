@@ -124,10 +124,10 @@ function pagetop($pageTitle) {
         $errorUserLogin = $username->customerLogin($userUsername, $userPassword);
         #checks the condition for entered credentials
         if($userUsername == "" || $userPassword == ""){
-            echo "Username-Password incorrect!!!!";
+            echo "<script>alert('Username-Password incorrect!!!!');</script>";
         }else{
             if($userUsername == $errorUserLogin || $userPassword == $errorUserLogin){
-                echo "Username-password entered is invalid";
+                echo "<script>alert('Username-Password incorrect!!!!');</script>";
             }else{
                 echo "<script>alert('Logged in Successfully');</script>";
             }
