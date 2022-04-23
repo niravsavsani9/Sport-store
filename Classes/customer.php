@@ -1,8 +1,15 @@
 <?php
-//require_once './order.php';
-//require_once './customers.php';
-//require_once './product.php';
-//require_once '../connection.php';
+
+#REVISION HISTORY
+#          NAME                                     DATE                        COMMENTS    
+#NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         17/04/2022                      created class customer
+#NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         17/04/2022                      defined constants and variables
+#NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         17/04/2022                      created getters,setters,load,update,save,delete functions
+#NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         17/04/2022                      created customer login function
+
+
+
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/PHPClass.php to edit this template
@@ -69,12 +76,12 @@ class customer {
     }
     
     public function varifySession(){
-//            $validateCustomer = new customer();
-        if (isset($_SESSION["cutomerSession"]))
+            $validateCustomer = new customer();
+        if (isset($_SESSION["customer_id"]))
         {
-            if (!empty($_SESSION["cutomerSession"]))
+            if (!empty($_SESSION["customer_id"]))
             {
-                $validateCustomer->setCustomerId($_SESSION["cutomerSession"]);
+                $validateCustomer->setCustomerId($_SESSION["customer_id"]);
             }
         }
     }
@@ -269,14 +276,14 @@ class customer {
         }
         else
         {
-            $sql = "CALL customer_update(:username, :password, :firstname, :lastname"
-                    . " :address, :city, :province, :postal_code, :picture)";
+//            $sql = "CALL customer_update(:username, :password, :firstname, :lastname"
+//                    . " :address, :city, :province, :postal_code, :picture)";
             
-//            $sql = "UPDATE customers set username = :username,"
-//                    . "password = :password, firstname = :firstname,"
-//                    . "lastname = :lastname, address = :address,"
-//                    . "city = :city, province = :province, postal_code = :postal_code,"
-//                    . "picture = :picture WHERE customer_id = :customer_id;";
+            $sql = "UPDATE customers set username = :username,"
+                    . "password = :password, firstname = :firstname,"
+                    . "lastname = :lastname, address = :address,"
+                    . "city = :city, province = :province, postal_code = :postal_code,"
+                    . "picture = :picture WHERE customer_id = :customer_id;";
             $PDOobject = $connection->prepare($sql);
             $PDOobject->bindParam(':username', $this->username);
             $PDOobject->bindParam(':password', $this->password);
@@ -287,6 +294,7 @@ class customer {
             $PDOobject->bindParam(':province', $this->province);
             $PDOobject->bindParam(':postal_code', $this->postal_code);
             $PDOobject->bindParam(':picture', $this->picture);
+            $PDOobject->bindParam(':customer_id', $this->customer_id);
             $PDOobject->execute();
 
             return true;

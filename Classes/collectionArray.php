@@ -1,5 +1,8 @@
 <?php
-
+#REVISION HISTORY
+#   NAME                                            DATE                        COMMENTS
+#NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         17/04/2022                   created collection array class
+#NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         17/04/2022                   defined all arrays for add,remove,get,count
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/PHPClass.php to edit this template

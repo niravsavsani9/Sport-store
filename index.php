@@ -7,25 +7,32 @@
 #NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         01/03/2022           wrote some lines on website details
 #NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         01/03/2022           Accessed images from diffrent folder and shuffled it for random images
 #NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         01/03/2022           gave condition to get one image with width 100% and height 100%
-#
-//constant declaration
+#NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         01/03/2022           mentioned cheatsheet link to direct download
+#NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         01/03/2022           implimented logout input to logout user
+
+
+#declared  or defined the constants to fetch data from common php function file
+#gave path for folder
 define("FOLDER_PHP", "./Function/");
+#gave path to access file inside the folder
 define("FILE_PHP", FOLDER_PHP . "./functions.php");
+#gave path to access text file cheat sheet
 define("CHEATSHEET", "./cheatSheet.txt");
-//defined image constant as an array for random images
+#defined image constant as an array for random images
 define("RANDOM_IMAGES", array("BTB_Nike_Cleats_Mercurial2.jpg",
     "baseball.jpg",
     "GetImage.asmx.jpg",
     "cricket_a484.jpg",
     "usatsi-12333463.jpg"));
+#included the file to fetch all the code which is inside the file.
 include_once(FILE_PHP);
-//called pagetop function to get html code and default values
-//Assign image array to a varible
+#called pagetop function to get html code and default values
+#Assign image array to a varible
 $random_images1 = RANDOM_IMAGES;
-//shffled that variable using shuffle function
+#shffled that variable using shuffle function
 shuffle($random_images1);
+#called pagetop function to get html code and default values inside function file
 pagetop("HomePage");
-
 
 ?>
 
@@ -50,29 +57,28 @@ pagetop("HomePage");
         </td>
     </tr>
 </table>
-<!--<a href="buying.php" id="next">Buying Page &raquo;</a>-->
+<!--link to download cheat sheet-->
 <a href="<?php echo CHEATSHEET; ?>" download id="previous">Download Cheat Sheet</a>
 <form method="post">
-   
     <?php 
+    #created object of customer
     $username1 = new customer();
-     foreach ($username1 as $customers){
-     echo $username1->getPicture(); }?>
-     
-    
-                                <?php if(!empty($_SESSION["firstname"]))
-                             { 
-                                 ?>
+    if(isset($_POST["logout"])){
+        
+       echo "<script>alert('Logged Out Successfully');</script>";
+            session_destroy();
+    }
+    if(!empty($_SESSION["customer_id"]))
+    { 
+    ?>
     <input type="submit" class="registerbtn" value="Logout" name="logout" />
-   
-    <img src="data:image;base64," base64_encode(<?php echo $username1->getPicture(); ?>) alt="alt"/>
-                             <?php
-                                 }
-                                 ?>
-
+    
+    <?php
+    }
+    ?>
 </form>
     <?php
-//called pageBottom function to get copyright details
+#called pageBottom function to get copyright details
 pageBottom();
 
 

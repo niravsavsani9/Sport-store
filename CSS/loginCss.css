@@ -58,9 +58,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
   margin-top: 8px;
   font-size: 17px;
   border: none;
-  width: 150px; /* adjust as needed (as long as it doesn't break the topnav) */
+  width: 150px;
 }
 
+.inputUsername{
+    padding-left: 20%;
+}
 /* Style the button inside the input container */
 .topnav .login-container button {
   float: right;
@@ -154,9 +157,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 
 .mainNavigationTable{
     background-color: #04AA6D;
-    margin-top: -2%;
+    margin-top: -1%;
     margin-left: -0.5%;
-    margin-bottom: -0.6%;
+    /*margin-bottom: -0%;*/
     
 }
 .line{
@@ -293,7 +296,7 @@ body {
     background-color: lightgreen;
     width: 101%;
     margin-left: -0.5%;
-    margin-top: 0.5%;
+    margin-top: 1%;
 }
 
 #fieldData{
@@ -327,7 +330,7 @@ body {
 
 /* Full-width input fields */
 input[type=text]{
-    width: 100%;
+    width: 25%;
     padding: 15px;
     margin: 5px 0 22px 0;
     display: inline-block;
@@ -348,7 +351,20 @@ hr {
 /* Set a style for the submit button */
 .registerbtn {
 
-    background-color: #04AA6D;
+    background-color: #f44336;
+    color: white;
+    padding: 16px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 35%;
+    margin-left: 31%;
+    opacity: 0.9;
+}
+
+.registerbtnPassword {
+
+    background-color: #fefefe;
     color: white;
     padding: 16px 20px;
     margin: 8px 0;

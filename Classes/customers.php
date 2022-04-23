@@ -1,4 +1,10 @@
 <?php
+#REVISION HISTORY
+#       NAME                                        DATE                                COMMENTS 
+#NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         17/04/2022                      created class customers with constructor
+#NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         17/04/2022                      make customers class extended from collection array
+
+
 require_once './collectionArray.php';
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license

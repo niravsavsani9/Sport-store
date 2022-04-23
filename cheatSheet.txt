@@ -382,3 +382,273 @@ For example:
 	utf8 : every charater takes 1byte so, it will good when you have large amount of data to store. It take more bytes when its required
 	ci : case Insensitive
 	cs : case sensitive
+[Array objects]................................................................................................................................................................
+	class collection
+			{
+    public $items = array();
+    
+    public function add($primary_key, $item)
+    {
+        $this->items[$primary_key] = $item;
+	//$item["primarykey"] = $one_customer;
+    }
+    
+    public function remove($primary_key)
+    {
+        if(isset($this->items[$primary_key]))
+        {
+            #unset means its gonna delete/destroy the data or entry
+            unset($this->items[$primary_key]);
+        }
+    }
+    
+    //find the data
+    public function get($primary_key)
+    {
+        if(isset($this->items[$primary_key]))
+        {
+            
+            return($this->items[$primary_key]);
+        }
+    }
+    
+    public function count()
+    {
+        return count($this->items);
+    }
+}
+[Connect Database]..............................................................................................................................................................
+	$connection = new PDO("mysql:host=localhost;dbname=employees", 'root', '');
+	$connection-> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	$connection->setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
+[get/getter method].............................................................................................................................................................
+	public function getEmployeeID() {
+        return $this->employee_id;
+    	}
+[set/setter method].............................................................................................................................................................
+	public function setEmployeeID($newEmployeeID) {
+        if (mb_strlen($newEmployeeID) == 0) {
+            return "The employee id ........... empty";
+        } else {
+            #access created constants using self as below
+            if (mb_strlen($newEmployeeID) > self::FIRSTNAME_LENGHT) {
+                return "The lenght of employee if ............error!";
+            } else {
+                $this->employee_id = $newEmployeeID;
+            }
+        }
+    }
+[constructor]...................................................................................................................................................................
+	public function __construct($employee_id = "", $firstName = "") {
+        if ($employee_id != "") {
+            #$this->employee_id = $employee_id;
+            #$this->firstName = $firstName;
+            
+            $this->setEmployeeID($employee_id);
+            $this->setFirstName($firstName);
+        }
+    }
+[Load data from Database using store procedure].................................................................................................................................
+	public function load($employee_id){
+        global $connection;
+        $sql = "SELECT * FROM employees WHERE employee_id "
+                . " = :employee_id";
+        
+        $PDOobject = $connection->prepare($sql);
+        $PDOobject->bindParam(':employee_id', $employee_id);
+        $PDOobject->execute();
+        if($row = $PDOobject->fetch(PDO::FETCH_ASSOC))
+        {
+        $this->employee_id = $row["employee_Id"];
+        $this->firstName = $row["firstName"];
+        return true;
+        } 
+    }
+[Save data into database using store procedure].................................................................................................................................
+	public function save()
+    {
+        global $connection;
+        if($this->employee_id == "")
+        {
+            $sql = "INSERT INTO employees (firstName) VALUES (:firstName)";
+            $PDOobject = $connection->prepare($sql);
+            $PDOobject->bindParam(':firstName', $this->firstName);
+            $PDOobject->execute();
+        
+            return true;
+        }
+[Update data into database using store procedure]..............................................................................................................................
+	$sql = "UPDATE employees set firstName = :firstName" . 
+                    " WHERE employee_Id = :employee_id";
+            $PDOobject = $connection->prepare($sql);
+            $PDOobject->bindParam(':firstName', $this->firstName);
+            $PDOobject->bindParam(':employee_id', $this->employee_id);
+            $PDOobject->execute();
+
+            return true;
+[Delete data into database using store procedure]..............................................................................................................................
+	 global $connection;
+         if($this->employee_id != "")
+        {
+        $sql = "DELETE FROM employees WHERE employee_Id = :employee_id";
+            $PDOobject = $connection->prepare($sql);
+            $PDOobject->bindParam(':employee_id', $this->employee_id);
+            $PDOobject->execute();
+            return true;
+        }
+[plural class in php]..........................................................................................................................................................
+	class employees extends collection
+{
+    function __construct() {
+        global $connection;
+        
+        $sql = "SELECT * FROM employees ORDER BY firstName";
+        
+        $PDOobject = $connection->prepare($sql);
+        $PDOobject->execute();
+        while($row = $PDOobject->fetch(PDO::FETCH_ASSOC))
+        {
+            $employees = new employee($row["employee_Id"],$row["firstName"]);
+            $this->add($row["employee_Id"],$employees);
+        }
+    }
+}
+[Load data from database to website]...........................................................................................................................................
+	        $employee = new employee();
+        if($employee->load("1ae1a38b-b1c8-11ec-9707-b88687219db6")){
+            echo "Emloyee Id : " . $employee->getEmployeeID() . "<br> Welcome " . $employee->getFirstName();
+        }else{
+            echo "unable.........";
+        }
+[Save data into database from user]............................................................................................................................................
+	        $employee = new employee();
+        $employee->setFirstName("xyz");
+        if($employee->save()){
+            echo "It worked....";
+        }
+[delete data into database from user]..........................................................................................................................................
+	        $employee = new employee();
+        if($employee->load("00dbb9c9-b736-11ec-9161-b88687219db6")){
+            if($employee->delete()){
+            echo "data deleted.....";
+        } else {
+            echo "data can't be deleted...";
+        }
+        }
+[update data by user to database]..............................................................................................................................................
+	        $employee = new employee();
+        if($employee->load("0659e7e5-b44a-11ec-8aa2-b88687219db6")){
+            $employee->setFirstName("Rahul");
+            $employee->save();
+            echo "data updated.....";
+        }
+[form to select data fetched from database into selection tag].................................................................................................................
+	echo "<form method='POST'>";
+       echo "<SELECT name='xyz'>";
+       
+        foreach ($employees->items as $employee)
+        {
+            echo "<option value ='" . $employee->getEmployeeID() . "'>" . $employee->getFirstName() . "</option>";
+        }
+        echo "</select>";
+        echo "<input name = 'save' type='submit'>";
+        echo "</form>";
+[Hide password/enctrypt password].............................................................................................................................................
+	$password_clear_text = "123";
+	#$encypted_password for password encryption
+	$password_hash = password_hash($password_clear_text, PASSWORD_DEFAULT);
+	echo " your password is " . $password_hash . "<br><br>";
+	echo "password lenght " . strlen($password_hash);
+[upload image from local storage].............................................................................................................................................
+	  if ($_FILES["avatar"]["error"] == UPLOAD_ERR_OK && is_uploaded_file($_FILES["avatar"]["tmp_name"])) {
+        $binary_file_data = file_get_contents($_FILES["avatar"]["tmp_name"]);			
+//        echo $binary_file_data;
+//        var_dump($_FILES);
+    } else {
+        echo "Please upload a file";
+        $file_error = "No file was....";
+    }
+[AJAX CODE(whole) which is written .js file]..................................................................................................................................
+	function test(message)
+{
+alert('My message is :' + message);
+}
+
+function searchArticle(message)
+{
+    try
+    {
+        //xhr
+        var ajaxRequest = new XMLHttpRequest();
+        //preparing request
+        ajaxRequest.onreadystatechange = function ()
+        {
+            console.log("readyState is now: " + ajaxRequest.readyState);
+            
+            //see notes for these validation int number which number means what
+            if(ajaxRequest.readyState === 4 && ajaxRequest.status === 200)
+            {
+//                alert("I received AJAX text:" + ajaxRequest.responseText);
+                document.getElementById("searcResults").innerHTML = ajaxRequest.responseText;
+            }
+            
+            
+        }
+        
+        ajaxRequest.open("POST" , "searchArticle.php");
+        //to let browser to know that not sending binary datas
+        ajaxRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        
+        //reads user enter data and print it on screen using html textfields
+        var message = document.getElementById("mySearch").value;
+        
+        //CALL function or sends ajax code
+        ajaxRequest.send("searchArticle=" + message);
+    }
+        catch (exception) {
+        alert ("An error occured " + exception);
+    }
+ {
+    }
+}
+
+function manageError(error)
+{
+    alert("An error occured: " + error);
+   console.log("An error occured: " + error);
+}
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <!--use constants in final project-->
+        <!--to access js file-->
+        <script language="javascript" type="text/javascript"
+                src="javascript/ajax.js"></script>
+    </head>
+    <body>
+        <!--<button onclick="test('Lasalle');">Test</button>-->
+        <button onclick="searchArticle('Lasalle');">Search Article</button>
+        
+        <input type="text" id="mySearch" />
+        
+        <div id="searcResults">
+            this search result will go here
+        </div>
+        
+        <?php
+
+        // put your code here
+        ?>
+    </body>
+</html>
+<?php
+
+#text/html : <doctype......  <html......
+header('Content-Type: text/plain');
+if(isset($_POST["searchArticle"]))
+{
+   echo "<h1>" .  $_POST["searchArticle"] . "<br> Article #2<br>Article #2</h1>"; 
+}
+
+

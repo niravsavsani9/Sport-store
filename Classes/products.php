@@ -1,7 +1,11 @@
 <?php
-//include_once './collectionArray.php ';
-//require_once '../Classes/collectionArray.php';
-//require_once '../Classes/product.php';
+#REVISION HISTORY
+#       NAME                                        DATE                                COMMENTS 
+#NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         17/04/2022                          created class products
+#NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         17/04/2022                          make products extended from collection array
+#NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         17/04/2022                          create cnstructor
+#
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/PHPClass.php to edit this template

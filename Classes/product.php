@@ -1,5 +1,11 @@
 <?php
-
+#REVISION HISTORY
+#       NAME                                        DATE                                COMMENTS 
+#NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         17/04/2022                          created class products
+#NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         17/04/2022                          defined constants and variables
+#NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         17/04/2022                          generated get,set,constructor,save,update,delete
+#                                                                                   load functions.
+#
 //require_once '../connection.php';
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -116,7 +122,6 @@ class product {
 
     public function __construct($product_id = "", $product_code = "", $product_description = "", $retail_price = "", $cost_price = "") {
         if ($product_id != "" || $product_code != "" || $product_description != "" || $retail_price != "" || $cost_price != "") {
-            echo $product_code;
             $this->setProductID($product_id);
             $this->setProductCode($product_code);
             $this->setProductDescription($product_description);

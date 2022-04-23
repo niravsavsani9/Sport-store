@@ -1,4 +1,11 @@
 <?php
+#REVISION HISTORY
+#   NAME                                            DATE                        COMMENTS
+#NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         18/04/2022                   created register page
+#NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         18/04/2022                   created html account form
+#NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         18/04/2022                   defined variables and connections
+#NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         18/04/2022                   set condition or performed operation to register user on create
+
 require_once './connection.php';
 require_once './Classes/customer.php';
 define("FOLDER_PHP2", "./Function/");
@@ -51,6 +58,7 @@ if (isset($_POST["submitButton"])) {
     #to read special characters like (#$%@)
     $customerUsername = htmlspecialchars($_POST["username"]);
     $customerPassword = htmlspecialchars($_POST["password"]);
+    $password_hash = password_hash($customerPassword, PASSWORD_DEFAULT);
     $customerFirstname = htmlspecialchars($_POST["firstname"]);
     $customerLastname = htmlspecialchars($_POST["lastname"]);
     $customerAddress = htmlspecialchars($_POST["address"]);
@@ -67,7 +75,7 @@ if (isset($_POST["submitButton"])) {
 
     $validateSessionCustomer = $validateCustomer->varifySession();
     $errorCustomerUsername = $validateCustomer->setUserName($customerUsername);
-    $errorCustomerPassword = $validateCustomer->setPassword($customerPassword);
+    $errorCustomerPassword = $validateCustomer->setPassword($password_hash);
     $errorCustomerFirstname = $validateCustomer->setFirstName($customerFirstname);
     $errorCustomerLastname = $validateCustomer->setLastName($customerLastname);
     $errorCustomerAddress = $validateCustomer->setAddress($customerAddress);
@@ -81,7 +89,12 @@ if (isset($_POST["submitButton"])) {
     } else {
 
         $validateCustomer->save();
-        $customerUsername = "";
+        $customerPicture = "";
+        if (isset($_SESSION["customer_id"])) {
+          echo "<script>alert('Profile Updated successfully....');</script>";
+        }
+        else{
+            $customerUsername = "";
         $customerPassword = "";
         $customerFirstname = "";
         $customerLastname = "";
@@ -89,12 +102,8 @@ if (isset($_POST["submitButton"])) {
         $customerCity = "";
         $customerProvince = "";
         $customerPostalCode = "";
-        $customerPicture = "";
-        ?>
-        <script>
-            alert("Profile created successfully....");
-        </script>
-        <?php
+            echo "<script>alert('Profile created successfully....');</script>";
+        }
     }
 }
 ?>
@@ -183,12 +192,11 @@ if (isset($_POST["submitButton"])) {
     <input id="fieldData" type="file" name="picture" value="picture" placeholder="&nbsp;Enter Picture" />
     <br />
 
-    <button type="submit" name="submitButton" class="registerbtn"">SAVE</button>
+    <button type="submit" name="submitButton" class="registerbtn"">CREATE PROFILE</button>
     <br />
     <button type="reset" value="Clearallfields" class="registerbtn">RESET</button>
     <br />
     <a href="index.php" id="previous">&laquo; Home</a>
-    <a href="order.php" id="next">Order Page &raquo;</a>
 </form>
 <?php
 pageBottom();

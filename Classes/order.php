@@ -1,5 +1,10 @@
 <?php
-
+#REVISION HISTORY
+#       NAME                                        DATE                                COMMENTS 
+#NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         17/04/2022                      created class order
+#NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         17/04/2022                      defined constants and variables
+#NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         17/04/2022                      created getters and setters property
+#NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         17/04/2022                      created functions get,set,constructor,load,save,update,delete
 //require './customer.php';
 //require_once '../connection.php';
 /*
@@ -18,7 +23,7 @@ class order {
     #create constant
     const CUSTOMER_ID_LENGHT = 36;
     const PRODUCT_ID_LENGHT = 36;
-    const QUANTITY_MAXIMUM_LENGHT = 999;
+    const QUANTITY_MAXIMUM_LENGHT = 99;
     const QUANTITY_MINIMUM_LENGHT = 1;
     const PRICE_LENGHT = 10;
     const COMMENTS_LENGHT = 200;
@@ -250,6 +255,32 @@ class order {
             $PDOobject->bindParam(':order_id', $this->order_id);
             $PDOobject->execute();
             return true;
+        }
+    }
+    
+    public function searchOrdersByDate(){
+        global $connection;
+        $sql = "CALL order_load(:customer_id,:orderDate)";
+        $PDOobject = $connection->prepare($sql);
+        $PDOobject->bindParam(":customer_id", $_SESSION["customer_id"]);
+        $PDOobject->bindParam(":orderDate", $orderDate);
+        $PDOobject->execute();
+        while ($row = $PDOobject->fetch(PDO::FETCH_ASSOC)) {
+            echo "<tr>";
+            echo '<td><button type="submit" name="delete" value="' . $row["order_id"] . '">Delete</button></td>';
+
+            echo "<td>" . $row["create_at"] . "</td>";
+            echo "<td>" . $row["product_code"] . "</td>";
+            echo "<td>" . $row["firstname"] . "</td>";
+            echo "<td>" . $row["lastname"] . "</td>";
+            echo "<td>" . $row["city"] . "</td>";
+            echo "<td>" . $row["comments"] . "</td>";
+            echo "<td>" . $row["retail_price"] . "</td>";
+            echo "<td>" . $row["quantity"] . "</td>";
+            echo "<td>" . $row["sub_total"] . "</td>";
+            echo "<td>" . $row["taxes"] . "</td>";
+            echo "<td>" . $row["total"] . "</td>";
+            echo "</tr>";
         }
     }
 }

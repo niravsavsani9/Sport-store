@@ -16,6 +16,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to ed
 
 /*login css*/
 
+#textColor{
+    color: white;
+    padding-left: 13px;
+}
+
+#profilePhoto{
+    margin: 5px;
+    padding: 5%;
+    width: 150px;
+    height: 130px;
+}
+
 * {box-sizing: border-box;}
 
 /* Style the navbar */
@@ -317,6 +329,7 @@ body {
 
 * {
     box-sizing: border-box;
+    
 }
 
 /* Add padding to containers */
@@ -327,7 +340,7 @@ body {
 
 /* Full-width input fields */
 input[type=text]{
-    width: 100%;
+    width: 25%;
     padding: 15px;
     margin: 5px 0 22px 0;
     display: inline-block;
