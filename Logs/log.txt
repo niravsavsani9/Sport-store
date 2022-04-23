@@ -540,3 +540,5 @@
 "2022-04-23 - An error 2{foreach() argument must be of type array|object, null given} occurred in the file C:\\xampp\\htdocs\\Final_project_2110222\\orderProject.php at line 69"
 "2022-04-23An exception 42000{SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '?, ?, ?, ?, ?)' at line 1} occurred in the file C:\\xampp\\htdocs\\Final_project_2110222\\Classes\\customer.php at line 287"
 "2022-04-23An exception HY093{SQLSTATE[HY093]: Invalid parameter number} occurred in the file C:\\xampp\\htdocs\\Final_project_2110222\\Classes\\customer.php at line 297"
+"2022-04-23 - An error 2{Undefined variable $passwordHash} occurred in the file C:\\xampp\\htdocs\\Final_project_2110222\\Classes\\customer.php at line 341"
+"2022-04-23An exception 42S22{SQLSTATE[42S22]: Column not found: 1054 Unknown column 'p_username' in 'where clause'} occurred in the file C:\\xampp\\htdocs\\Final_project_2110222\\Classes\\customer.php at line 324"

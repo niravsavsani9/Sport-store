@@ -317,6 +317,7 @@ class customer {
     public function customerLogin($newUsername, $newPassword){
         global $connection;
         $sql = "CALL login (:username, :password)";
+        
         $PDOobject = $connection->prepare($sql);
         $PDOobject->bindParam(':username', $newUsername);
         $PDOobject->bindParam(':password', $newPassword);

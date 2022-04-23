@@ -136,7 +136,6 @@ function pagetop($pageTitle) {
         if (isset($_POST["logout"])) {
             echo "Logged Out Successfully";
             session_destroy();
-            header("Location: index.php");
         } else {
             #condition if user-already logged in
             if (isset($_SESSION["customer_id"])) {

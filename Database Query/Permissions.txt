@@ -1,0 +1,19 @@
+1) GRANT USAGE ON *.* TO `Permissions`@`localhost` IDENTIFIED BY PASSWORD '*00A51F3F48415C7D4E8908980D443C29C69B60C9'
+2)GRANT SELECT, SHOW VIEW ON `database_2110222`.`showorders_view` TO `Permissions`@`localhost`
+3)GRANT EXECUTE ON PROCEDURE `database_2110222`.`login` TO `Permissions`@`localhost`
+4)GRANT EXECUTE ON PROCEDURE `database_2110222`.`order_delete` TO `Permissions`@`localhost`
+5)GRANT EXECUTE ON PROCEDURE `database_2110222`.`product_select_all` TO `Permissions`@`localhost`
+6)GRANT EXECUTE ON PROCEDURE `database_2110222`.`customer_select_all` TO `Permissions`@`localhost`
+7)GRANT EXECUTE ON PROCEDURE `database_2110222`.`product_select_one` TO `Permissions`@`localhost`
+8)GRANT EXECUTE ON PROCEDURE `database_2110222`.`order_load` TO `Permissions`@`localhost`
+9)GRANT EXECUTE ON PROCEDURE `database_2110222`.`product_insert` TO `Permissions`@`localhost`
+10)GRANT EXECUTE ON PROCEDURE `database_2110222`.`customer_insert` TO `Permissions`@`localhost`
+11)GRANT EXECUTE ON PROCEDURE `database_2110222`.`customer_update` TO `Permissions`@`localhost`
+12)GRANT EXECUTE ON PROCEDURE `database_2110222`.`customer_delete` TO `Permissions`@`localhost`
+13)GRANT EXECUTE ON PROCEDURE `database_2110222`.`order_select_all` TO `Permissions`@`localhost`
+14)GRANT EXECUTE ON PROCEDURE `database_2110222`.`order_select_one` TO `Permissions`@`localhost`
+15)GRANT EXECUTE ON PROCEDURE `database_2110222`.`order_insert` TO `Permissions`@`localhost`
+16)GRANT EXECUTE ON PROCEDURE `database_2110222`.`product_delete` TO `Permissions`@`localhost`
+17)GRANT EXECUTE ON PROCEDURE `database_2110222`.`product_update` TO `Permissions`@`localhost`
+18)GRANT EXECUTE ON PROCEDURE `database_2110222`.`order_update` TO `Permissions`@`localhost`
+19)GRANT EXECUTE ON PROCEDURE `database_2110222`.`customer_select_one` TO `Permissions`@`localhost`
