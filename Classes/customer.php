@@ -33,7 +33,7 @@ class customer {
     const POSTAL_CODE_LENGHT = 25;
     const PICTURE_LENGHT = 16000000;
 
-
+    #declared variables
     private $customer_id = "";
     private $username = "";
     private $password = "";
@@ -44,6 +44,8 @@ class customer {
     private $province = "";
     private $postal_code = "";
     private $picture = "";
+    
+    #getters method
     public function getCustomerId() {
         return $this->customer_id;
     }
@@ -75,6 +77,7 @@ class customer {
         return $this->picture;
     }
     
+    #setter methods
     public function varifySession(){
             $validateCustomer = new customer();
         if (isset($_SESSION["customer_id"]))
@@ -214,6 +217,7 @@ class customer {
             
     }
     
+    #constructor
     public function __construct($customer_id = "", $username = "", $password = "" ,$firstname = "", $lastname = "", $address = "", $city = "", $province = "", $postal_code = "", $picture = "") {
         if ($customer_id != "" || $username != "" || $password != "" || $firstname != "" || $lastname != "" || $address != "" || $city != "" || $province != "" || $postal_code != "" || $picture != "") {
             $this->customer_id($customer_id);
@@ -254,6 +258,7 @@ class customer {
         } 
     }
     
+    #save data to database
     public function save()
     {
         global $connection;
@@ -276,14 +281,9 @@ class customer {
         }
         else
         {
-//            $sql = "CALL customer_update(:username, :password, :firstname, :lastname"
-//                    . " :address, :city, :province, :postal_code, :picture)";
-            
-            $sql = "UPDATE customers set username = :username,"
-                    . "password = :password, firstname = :firstname,"
-                    . "lastname = :lastname, address = :address,"
-                    . "city = :city, province = :province, postal_code = :postal_code,"
-                    . "picture = :picture WHERE customer_id = :customer_id;";
+            #update informato in database
+            $sql = "CALL customer_update(:username, :password, :firstname, :lastname,"
+                    . " :address, :city, :province, :postal_code, :picture, :customer_id)";
             $PDOobject = $connection->prepare($sql);
             $PDOobject->bindParam(':username', $this->username);
             $PDOobject->bindParam(':password', $this->password);
@@ -301,6 +301,7 @@ class customer {
         }
     }
     
+    #delete data into database
     public function delete()
     {
          global $connection;
@@ -314,14 +315,14 @@ class customer {
         }
     }
     
+    #user login varification
     public function customerLogin($newUsername, $newPassword){
         global $connection;
-        $sql = "CALL login (:username, :password)";
-        
+        $sql = "CALL login (:username)";
         $PDOobject = $connection->prepare($sql);
         $PDOobject->bindParam(':username', $newUsername);
-        $PDOobject->bindParam(':password', $newPassword);
         $PDOobject->execute();
+     
         while($row = $PDOobject->fetch()) {
                 $passwordHash = $row['password'];
                 $correctPassword = password_verify($newPassword, $passwordHash);

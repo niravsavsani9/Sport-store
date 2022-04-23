@@ -18,7 +18,7 @@
  */
 class products extends collectionArray {
     //put your code here
-    
+    #constructor
     function __construct() {
         global $connection;
         

@@ -28,7 +28,7 @@ class order {
     const PRICE_LENGHT = 10;
     const COMMENTS_LENGHT = 200;
 
-
+    #create variables
     private $order_id = "";
     private $customer_id = "";
     private $product_id = "";
@@ -39,6 +39,7 @@ class order {
     private $taxes = "";
     private $total = "";
     
+    #getter method
     public function getOrderID()
     {
         return $this->order_id;
@@ -70,6 +71,7 @@ class order {
         return $this->total;
     }
     
+    #setter method
     public function setOrderID($newOrder_id)
     {
         if(mb_strlen($newOrder_id) != 0)
@@ -177,7 +179,7 @@ class order {
                 $this->total = $newTotal;
     }
     
-    
+    #constructor
     public function __construct($order_id = "", $customer_id = "", $product_id = "", $quantity = "", $price = "", $comments = "") {
         if ($order_id != "" || $customer_id != "" || $product_id != "" || $quantity != "" || $price != "" || $comments != "" ) {
             $this->order_id($order_id);
@@ -209,6 +211,7 @@ class order {
         } 
     }
     
+    #save data into database
     public function save()
     {
         global $connection;
@@ -229,6 +232,7 @@ class order {
         }
         else
         {
+            #update data into database
             $sql = "CALL order_update(:customer_id, :product_id, :quantity, :price, :comments, :sub_total, :taxes, :total)";
             $PDOobject = $connection->prepare($sql);
             $PDOobject->bindParam(':customer_id', $this->customer_id);
@@ -245,6 +249,7 @@ class order {
         }
     }
     
+    #delete data into database
     public function delete()
     {
          global $connection;
@@ -258,6 +263,7 @@ class order {
         }
     }
     
+    #search function to fetch data using date
     public function searchOrdersByDate(){
         global $connection;
         $sql = "CALL order_load(:customer_id,:orderDate)";

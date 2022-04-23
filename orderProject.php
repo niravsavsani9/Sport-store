@@ -6,7 +6,7 @@
 #NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         21/04/2022                      created html table
 #NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         21/04/2022                      created html form for search by date
 #NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         21/04/2022                      implemented conditions for delete order and search by date orders
-
+#NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         23/04/2022                      completed entrypted password bug
 require_once './connection.php';
 require_once './Classes/collectionArray.php';
 require_once './Classes/order.php';

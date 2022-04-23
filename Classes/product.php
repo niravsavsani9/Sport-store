@@ -26,12 +26,14 @@ class product {
     const RETAIL_PRICE_LENGHT = 10000;
     const COST_PRICE_LENGHT = 10000;
 
+    #declared variables
     public $product_id = "";
     private $product_Code = "";
     private $product_description = "";
     private $retail_price = "";
     private $cost_price = "";
 
+    #getter methods
     public function getProductID() {
         return $this->product_id;
     }
@@ -52,6 +54,7 @@ class product {
         return $this->cost_price;
     }
 
+    #setter methods
     public function setProductID($newProduct_id) {
         if (mb_strlen($newProduct_id) == 0) {
             return "Product Id Missing.....";
@@ -120,6 +123,7 @@ class product {
         }
     }
 
+    #constructor
     public function __construct($product_id = "", $product_code = "", $product_description = "", $retail_price = "", $cost_price = "") {
         if ($product_id != "" || $product_code != "" || $product_description != "" || $retail_price != "" || $cost_price != "") {
             $this->setProductID($product_id);
@@ -130,8 +134,7 @@ class product {
         }
     }
 
-#get data from database
-
+    #get data from database
     public function load($product_id) {
         global $connection;
         $sql = "CALL product_select_one(:product_id)";
@@ -148,7 +151,7 @@ class product {
             return true;
         }
     }
-
+    #save data into database
     public function save() {
         global $connection;
         if ($this->product_id == "") {
@@ -162,8 +165,8 @@ class product {
 
             return true;
         } else {
+            #update database
             $sql = "CALL product_update(:product_code, :product_description, :retail_price, :cost_price)";
-#$sql = "CALL product_update(product_code = :product_code, product_description = :product_description, retail_price = :retail_price, cost_price = :cost_price";
             $PDOobject = $connection->prepare($sql);
             $PDOobject->bindParam(':product_code', $this->product_Code);
             $PDOobject->bindParam(':product_description', $this->product_description);
@@ -175,6 +178,7 @@ class product {
         }
     }
 
+    #delete data into database
     public function delete() {
         global $connection;
         if ($this->product_id != "") {

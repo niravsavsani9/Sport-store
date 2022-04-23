@@ -18,6 +18,7 @@ require_once './collectionArray.php';
  */
 class customers extends collectionArray {
     //put your code here
+    #Constructor
     function __construct() {
         global $connection;
         

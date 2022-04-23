@@ -1,4 +1,5 @@
 <?php
+
 #REVISION HISTORY
 #   NAME                                            DATE                        COMMENTS
 #NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         17/04/2022                   created collection array class
@@ -14,22 +15,28 @@
  * @author savsa
  */
 class collectionArray {
+    #arrays of add - remove - count and get primary key
     //put your code here
     public $items = array();
-        public function add($primary_key, $item) {
-            $this->items[$primary_key] = $item;
+
+    public function add($primary_key, $item) {
+        $this->items[$primary_key] = $item;
+    }
+
+    public function remove($primary_key) {
+        if (isset($this->items[$primary_key])) {
+            unset($this->items[$primary_key]);
         }
-        public function remove($primary_key) {
-            if (isset($this->items[$primary_key])) {
-                unset($this->items[$primary_key]);
-            }
+    }
+
+    public function get($primary_key) {
+        if (isset($this->items[$primary_key])) {
+            return($this->items[$primary_key]);
         }
-        public function get($primary_key) {
-            if (isset($this->items[$primary_key])) {
-                return($this->items[$primary_key]);
-            }
-        }
-        public function count(){
-            return count($this->items);
-        }
+    }
+
+    public function count() {
+        return count($this->items);
+    }
+
 }
