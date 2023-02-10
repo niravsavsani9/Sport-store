@@ -1,0 +1,442 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Apr 17, 2022, 4:32:32 PM
+    Author     : savsani niravkumar
+*/
+
+/*
+#DEVELOPER                                        DATE                            COMMENTS
+#NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         28/02/2022           created midTerm.css file
+#NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         01/03/2022           aplied some css for project using class
+#NIRAVKUMAR CHANDUBHAI SAVSANI(2110222)         04/03/2022           Done all the css for index,buying and orders pages
+*/
+
+/*login css*/
+
+body {font-family: Arial, Helvetica, sans-serif;}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+}
+
+/* Center the image and position the close button */
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+  position: relative;
+}
+
+img.avatar {
+  width: 40%;
+  border-radius: 50%;
+}
+
+.container {
+  padding: 16px;
+}
+
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button (x) */
+.close {
+  position: absolute;
+  right: 25px;
+  top: 0;
+  color: #000;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: red;
+  cursor: pointer;
+}
+
+/* Add Zoom Animation */
+.animate {
+  -webkit-animation: animatezoom 0.6s;
+  animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+  from {-webkit-transform: scale(0)} 
+  to {-webkit-transform: scale(1)}
+}
+  
+@keyframes animatezoom {
+  from {transform: scale(0)} 
+  to {transform: scale(1)}
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+     display: block;
+     float: none;
+  }
+  .cancelbtn {
+     width: 100%;
+  }
+}
+
+
+.tableIndexPage{
+    margin-left: -0.5%;
+    
+}
+.tableOrderPage{
+    width:101%;
+    text-align: center;
+    margin-left: -0.5%;
+   margin-top: 5%;
+}
+#mainLogoImage{
+    width:35%;
+    margin-left: 35%;
+    height: 5%;
+    margin-top: 1%;
+    margin-bottom: -3%;
+    padding: 5%;
+    opacity: 0.3;
+    
+    
+}
+
+
+#mainLogo{
+    margin-left: 2%;
+}
+
+#title{
+    font-size:xx-large;
+    text-align: center;
+    margin-left: 7%;
+}
+
+#1ColumTable{
+    
+}
+
+#homeTable{
+    width: 30%;
+}
+
+#productHead{
+   margin-left: 43%;
+}
+
+#customerForm{
+    margin-left: 30%;
+}
+
+.print{
+    background-color: white;
+}
+
+.mainNavigationTable{
+    background-color: #04AA6D;
+    margin-top: -2%;
+    margin-left: -0.5%;
+    margin-bottom: -0.6%;
+    
+}
+.line{
+    margin-left: -0.5%;
+    margin-right: -0.5%;
+    margin-bottom: -0.5%;
+}
+.imageOpacity{
+    opacity: 0.3;
+    background-color: white;
+}
+
+#imageTable{
+    width: 70%;
+}
+
+#dataOfTableContent{
+    text-align: justify;
+    width: 30%;
+}
+
+.orderBackground{
+    background-color: grey;
+}
+
+.buyingBackground{
+    /*background-color: lightgreen;*/
+    background-image: url("../Image/signup-background.jpeg");
+}
+
+.indexBackground{
+    background-color: lightseagreen;
+    /*background-image: url("../Image/homePage.mp4");*/
+}
+
+.randomImagesChange
+{
+    width: 25%;
+    height: 25%;
+    margin-left: 35%;
+}
+
+.oneRandomImageChange{
+    width: 100%;
+    height: 100%;
+    border: 5px solid red;
+}
+
+.copyRightInfo {
+
+    margin-right: 38%;
+    margin-left: 38%;
+}
+.headerMain{
+    height: 50%;
+}
+
+body {
+    font-family: "Lato", sans-serif;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+
+
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+    .sidenav a {
+        font-size: 18px;
+    }
+}
+
+/*ORDER PAGE CSS*/
+
+.body{
+    background-color: lightcyan;
+}
+
+.subtotalRed{
+    color: red;
+}
+.subtotalOrange{
+    color: orange;
+}
+.subtotalGreen{
+    color: green;
+}
+.required{
+    color: red;
+}
+
+.formBuying{
+    /*background-image: url("../Image/homePage.mp4");*/
+    background-image: url("../Image/signup-background.jpeg");
+    background-color: lightgreen;
+    width: 101%;
+    margin-left: -0.5%;
+margin-top: 0.5%;
+}
+
+#fieldData{
+    
+    width: 35%;
+    
+}
+
+.validationError{
+    color: red;
+    text-height: -2%;
+    font-size: 12px;
+}
+
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    /*background-color: black;*/
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Add padding to containers */
+.container {
+    padding: 16px;
+    background-color: white;
+}
+
+/* Full-width input fields */
+input[type=text]{
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: whitesmoke;
+}
+
+input[type=text]:focus{
+    background-color: lightblue;
+    outline: none;
+}
+/* Overwrite default styles of hr */
+hr {
+    border: 1px solid black;
+    margin-bottom: 25px;
+}
+
+/* Set a style for the submit button */
+.registerbtn {
+
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 35%;
+    margin-left: 31%;
+    opacity: 0.9;
+}
+
+.registerbtn:hover {
+    opacity: 2;
+    background-color: lightseagreen;
+    color: black;
+}
+
+a {
+    color: dodgerblue;
+}
+
+#accessNavigationButton{
+    font-size:30px;
+    cursor:pointer;
+}
+
+#Logo{
+   
+}
+a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+}
+
+a:hover {
+    background-color: lightpink;
+    color: black;
+}
+
+#previous {
+    background-color: #f1f1f1;
+    color: black;
+}
+
+#next {
+    background-color: #04AA6D;
+    color: white;
+}
+
+.round {
+    border-radius: 50%;
+}
+
