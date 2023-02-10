@@ -60,7 +60,7 @@ $curPageName = substr($_SERVER["SCRIPT_NAME"], strrpos($_SERVER["SCRIPT_NAME"], 
 function manageError($errorNumber, $errorString, $errorFile, $errorLine) {
     global $currentDateTime;
     $detailedError = $currentDateTime . " - An error " . $errorNumber . "{" . $errorString . "} occurred in the file " . $errorFile . " at line " . $errorLine;
-    if (DEBUGGING_MODE == true) {
+    if (DEBUGGING_MODE == false) {
         #for developers
         echo $detailedError;
     }
